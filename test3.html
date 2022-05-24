@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button type="button"
+        onclick="hitButtonTap()"
+        style="background-color: cadetblue; width: 150px; height: 35px; border: none">请点击我
+</body>
+</html>
+
+<script src="https://unpkg.com/callapp-lib@3.1.2/dist/index.umd.js"></script>
+
+<script>
+    function hitButtonTap() {
+        //简单的复制5个数字并打开微信
+        const options = {
+            scheme: {
+                protocol: 'weixin'  //必填项 URL Scheme 的 scheme 字段，要打开的 APP 的标识，比如这里是微信的标识
+            },
+            intent:{    //安卓原生谷歌浏览器必须传递 Intent 协议地址，才能唤起 APP
+                //这两个是intent的必填项
+                package:'com.tencent.mm',   //腾讯微信包名
+                scheme: 'weixin'
+            },
+            appstore: 'https://weixin.qq.com/', //必填项 APP 的下载地址，比如这里是微信的下载地址
+            yingyongbao: 'https://sj.qq.com/myapp/detail.htm?apkName=com.tencent.mm', //必填项 APP 的应用宝地址，比如这里微信的应用宝下载地址
+            fallback: location.href //必填项 唤起app端失败后跳转的地址。
+        };
+        //callapp-lib 中传递出来的是一个类，你需要将它实例化，然后才能去调用实例对象的方法
+        const callLib = new CallApp(options);
+        //这里是唤端方法
+        callLib.open({
+            //如果只是唤起app，不需要打开app的某个页面，填空字符串就可以
+            path: ''
+            //打开app某个页面，需要接收的参数。如果没有就不用写
+            // param:{},
+        })
+    }
+</script>
