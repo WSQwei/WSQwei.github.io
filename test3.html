@@ -27,7 +27,8 @@
             },
             appstore: 'https://weixin.qq.com/', //必填项 APP 的下载地址，比如这里是微信的下载地址
             yingyongbao: 'https://sj.qq.com/myapp/detail.htm?apkName=com.tencent.mm', //必填项 APP 的应用宝地址，比如这里微信的应用宝下载地址
-            fallback: location.href //必填项 唤起app端失败后跳转的地址。
+            fallback: location.href, //必填项 唤起app端失败后跳转的地址。
+            timeout: 5000, //坑来了 这⾥我必须写的时间长⼀点不然ios打开会出问题，现在ios 已经禁⽌了获取本地app的接⼝了所以现在只能通过app打开的时长来判断是否app已经下载 ps:刚开始没有设置时间然后就⼀直打开app 后跳appstore 看了好久⽂档才知道是这个原因]
         };
         //callapp-lib 中传递出来的是一个类，你需要将它实例化，然后才能去调用实例对象的方法
         const callLib = new CallApp(options);
